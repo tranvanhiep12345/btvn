@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Giải phương trình bậc hai</title>
+	<meta charset="utf-8">
+</head>
+<body>
+	<h2>Nhập các hệ số của phương trình:</h2>
+	<label for="a">a = </label>
+	<input type="number" id="a" name="a"><br><br>
+
+	<label for="b">b = </label>
+	<input type="number" id="b" name="b"><br><br>
+
+	<label for="c">c = </label>
+	<input type="number" id="c" name="c"><br><br>
+
+	<button type="button" onclick="solve()">Giải phương trình</button>
+
+	<p id="result"></p>
+
+	<script>
+		function solve() {
+			// Lấy giá trị của a, b, c
+			let a = parseInt(document.getElementById("a").value);
+			let b = parseInt(document.getElementById("b").value);
+			let c = parseInt(document.getElementById("c").value);
+
+			// Kiểm tra các hệ số
+			if (a === 0 && b === 0 && c === 0) {
+				document.getElementById("result").innerHTML = "Phương trình có vô số nghiệm";
+			} else if (a === 0 && b === 0) {
+				document.getElementById("result").innerHTML = "Phương trình vô nghiệm";
+			} else {
+				// Tính delta
+				let delta = b * b - 4 * a * c;
+
+				// Kiểm tra delta để tính nghiệm
+				if (delta < 0) {
+					document.getElementById("result").innerHTML = "Phương trình vô nghiệm";
+				} else if (delta === 0) {
+					let x = -b / (2 * a);
+					document.getElementById("result").innerHTML = "Phương trình có nghiệm kép x = " + x;
+				} else {
+					let x1 = (-b + Math.sqrt(delta)) / (2 * a);
+					let x2 = (-b - Math.sqrt(delta)) / (2 * a);
+					document.getElementById("result").innerHTML = "Phương trình có hai nghiệm phân biệt: x1 = " + x1 + ", x2 = " + x2;
+				}
+			}
+		}
+	</script>
+</body>
+</html>

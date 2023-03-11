@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Kiểm tra tam giác</title>
+</head>
+<body>
+	<h1>Kiểm tra tam giác</h1>
+	<form>
+		<label for="a">Cạnh 1:</label>
+		<input type="number" id="a" name="a"><br><br>
+		<label for="b">Cạnh 2:</label>
+		<input type="number" id="b" name="b"><br><br>
+		<label for="c">Cạnh 3:</label>
+		<input type="number" id="c" name="c"><br><br>
+		<input type="button" value="Kiểm tra" onclick="kiemTraTamGiac()">
+	</form>
+
+	<script>
+		function kiemTraTamGiac() {
+			var a = parseInt(document.getElementById("a").value);
+			var b = parseInt(document.getElementById("b").value);
+			var c = parseInt(document.getElementById("c").value);
+
+			if (a + b > c && a + c > b && b + c > a) {
+				if (a == b && b == c) {
+					alert("Tam giác đều");
+				} else if (a == b || b == c || a == c) {
+					if (a*a + b*b == c*c || a*a + c*c == b*b || b*b + c*c == a*a) {
+						alert("Tam giác vuông cân");
+					} else {
+						alert("Tam giác cân");
+					}
+				} else if (a*a + b*b == c*c || a*a + c*c == b*b || b*b + c*c == a*a) {
+					alert("Tam giác vuông");
+				} else {
+					alert("Tam giác thường");
+				}
+			} else {
+				alert("Không phải tam giác");
+			}
+		}
+	</script>
+</body>
+</html>
