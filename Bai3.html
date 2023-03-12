@@ -1,43 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Tính tiền điện</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Dự đoán tình cảm</title>
 </head>
 <body>
-	<h1>Tính tiền điện</h1>
-	<label for="soDien">Nhập số điện (kWh):</label>
-	<input type="number" id="soDien" name="soDien" min="0">
-	<button onclick="tinhTienDien()">Tính</button>
-	<p id="ketQua"></p>
+	<h1>Dự đoán tình cảm</h1>
+	<p>Nhập ngày tháng năm sinh của bạn nam và bạn nữ:</p>
+	<label for="nam">Ngày tháng năm sinh của bạn nam:</label>
+	<input type="date" id="nam" name="nam"><br><br>
+	<label for="nu">Ngày tháng năm sinh của bạn nữ:</label>
+	<input type="date" id="nu" name="nu"><br><br>
+	<button onclick="duDoanTinhCam()">Dự đoán</button>
+	<p id="ketqua"></p>
+
 	<script>
-		function tinhTienDien() {
-			let soDien = document.getElementById("soDien").value;
-			let tienDien = 0;
-			if (soDien > 400) {
-				tienDien += (soDien - 400) * 2.927;
-				soDien = 400;
+		function namLichAm(namDuong) {
+			return parseInt(namDuong * 1.05 + 1900);
+		}
+
+		function nuLichAm(namDuong) {
+			return parseInt(namDuong * 1.06 + 1900);
+		}
+
+		function cungHoangDao(namLichAm) {
+			return (namLichAm - 4) % 12 + 1;
+		}
+
+		function cungMenh(namLichAm) {
+			return (namLichAm - 4) % 10 + 1;
+		}
+
+		function cungPhuMenh(namLichAm) {
+			return (namLichAm - 4) % 9 + 1;
+		}
+
+		function duDoanTinhCam() {
+			let nam = new Date(document.getElementById("nam").value);
+			let nu = new Date(document.getElementById("nu").value);
+			let namLichAm = namLichAm(nam.getFullYear());
+			let nuLichAm = nuLichAm(nu.getFullYear());
+			let namCungHoangDao = cungHoangDao(namLichAm);
+			let nuCungHoangDao = cungHoangDao(nuLichAm);
+			let namCungMenh = cungMenh(namLichAm);
+			let nuCungMenh = cungMenh(nuLichAm);
+			let namCungPhuMenh = cungPhuMenh(namLichAm);
+			let nuCungPhuMenh = cungPhuMenh(nuLichAm);
+
+			if (namCungHoangDao == nuCungHoangDao && namCungMenh == nuCungMenh) {
+				document.getElementById("ketqua").innerHTML = "Hợp nhau";
+			} else if (namCungHoangDao == nuCungHoangDao || namCungMenh == nuCungMenh) {
+				document.getElementById("ketqua").innerHTML = "Tam tai";
+			} else {
+				document.getElementById("ketqua").innerHTML = "Chưa hợp nhau";
 			}
-			if (soDien > 300) {
-				tienDien += (soDien - 300) * 2.834;
-				soDien = 300;
-			}
-			if (soDien > 200) {
-				tienDien += (soDien - 200) * 2.536;
-				soDien = 200;
-			}
-			if (soDien > 100) {
-				tienDien += (soDien - 100) * 2.014;
-				soDien = 100;
-			}
-			if (soDien > 50) {
-				tienDien += (soDien - 50) * 1.734;
-				soDien = 50;
-			}
-			tienDien += soDien * 1.678;
-			document.getElementById("ketQua").innerHTML = "Số tiền điện phải trả: " + tienDien.toFixed(2) + " đồng";
-		} 
+		}
 	</script>
 </body>
 </html>
