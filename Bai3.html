@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dự đoán tình cảm</title>
+</head>
+<body>
+	<h1>Dự đoán tình cảm</h1>
+	<p>Nhập ngày tháng năm sinh của bạn nam và bạn nữ:</p>
+	<label for="nam">Ngày tháng năm sinh của bạn nam:</label>
+	<input type="date" id="nam" name="nam"><br><br>
+	<label for="nu">Ngày tháng năm sinh của bạn nữ:</label>
+	<input type="date" id="nu" name="nu"><br><br>
+	<button onclick="duDoanTinhCam()">Dự đoán</button>
+	<p id="ketqua"></p>
+
+	<script>
+		function namLichAm(namDuong) {
+			return parseInt(namDuong * 1.05 + 1900);
+		}
+
+		function nuLichAm(namDuong) {
+			return parseInt(namDuong * 1.06 + 1900);
+		}
+
+		function cungHoangDao(namLichAm) {
+			return (namLichAm - 4) % 12 + 1;
+		}
+
+		function cungMenh(namLichAm) {
+			return (namLichAm - 4) % 10 + 1;
+		}
+
+		function cungPhuMenh(namLichAm) {
+			return (namLichAm - 4) % 9 + 1;
+		}
+
+		function duDoanTinhCam() {
+			let nam = new Date(document.getElementById("nam").value);
+			let nu = new Date(document.getElementById("nu").value);
+			let namLichAm = namLichAm(nam.getFullYear());
+			let nuLichAm = nuLichAm(nu.getFullYear());
+			let namCungHoangDao = cungHoangDao(namLichAm);
+			let nuCungHoangDao = cungHoangDao(nuLichAm);
+			let namCungMenh = cungMenh(namLichAm);
+			let nuCungMenh = cungMenh(nuLichAm);
+			let namCungPhuMenh = cungPhuMenh(namLichAm);
+			let nuCungPhuMenh = cungPhuMenh(nuLichAm);
+
+			if (namCungHoangDao == nuCungHoangDao && namCungMenh == nuCungMenh) {
+				document.getElementById("ketqua").innerHTML = "Hợp nhau";
+			} else if (namCungHoangDao == nuCungHoangDao || namCungMenh == nuCungMenh) {
+				document.getElementById("ketqua").innerHTML = "Tam tai";
+			} else {
+				document.getElementById("ketqua").innerHTML = "Chưa hợp nhau";
+			}
+		}
+	</script>
+</body>
+</html>

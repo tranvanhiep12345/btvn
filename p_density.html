@@ -15,9 +15,9 @@
         <p id="ket-qua">Kết quả:</p>
     <script>   
     function tinhMatdodanso(){
-        var soDan = parseInt(document.getElementById("so-dan").value);
-        var dienTich = parseInt(document.getElementById("dien-tich").value);
-        var matDoDanSo = soDan / dienTich;
+        let soDan = parseInt(document.getElementById("so-dan").value);
+        let dienTich = parseInt(document.getElementById("dien-tich").value);
+        let matDoDanSo = soDan / dienTich;
         if (matDoDanSo > 1000) {
           document.getElementById("ket-qua").innerHTML = "Khu vực này quá đông đúc";
         } else {
